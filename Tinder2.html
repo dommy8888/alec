@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinder 2</title>
+    <link rel="stylesheet" href="tinder2.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <i class="fa fa-arrow-left"></i>
+            <h1>Tinder Clone</h1>
+            <i class="fa fa-heart"></i>
+        </div>
+        
+        <div class="profile-card-container">
+            <div class="profile-card">
+            <img src="images/profile1.png" alt="Profile Picture">
+            <div class="profile-details">
+                <h2>Dominick Castillo, 18</h2>
+                <p>I consider myself to be a renaissance man, a handyman of knowledge per se. Would love to find someone to share that passion with.</p>
+                <div class="actions">
+                <button type="button" class="reject">Reject</button>
+                <button type="button" class="like">Like</button>
+                </div>
+            </div>
+            </div>
+            <div class="profile-card">
+            <img src="images/profile2.png" alt="Profile Picture">
+            <div class="profile-details">
+                <h2>Dommy, 19</h2>
+                <p>Pretty laid back guy, open to whatever comes my way tbh.</p>
+                <div class="actions">
+                <button type="button" class="reject">Reject</button>
+                <button type="button" class="like">Like</button>
+                </div>
+            </div>
+            </div>
+            <div class="profile-card">
+            <img src="images/profile3.png" alt="Profile Picture">
+            <div class="profile-details">
+                <h2>Dom, 20</h2>
+                <p>Honestly, I'm just on here for the shits and giggles.</p>
+                <div class="actions">
+                <button type="button" class="reject">Reject</button>
+                <button type="button" class="like">Like</button>
+                </div>
+            </div>
+            </div>
+        </div>
+            <!-- More profiles can be added here -->
+        </div>
+        <div id="no-more-profiles" class="no-more-profiles">
+            <h2>You're out of luck, no more fish in this sea!</h2>
+        </div>
+    </div>
+    <style>
+        .no-more-profiles {
+            display: none;
+        }
+    </style>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    let currentProfile = 0;
+    const profiles = document.querySelectorAll('.profile-card');
+    profiles.forEach((profile, index) => {
+        profile.style.opacity = index === 0 ? '1' : '0';
+    });
+    const likeButtons = document.querySelectorAll('.like');
+    const rejectButtons = document.querySelectorAll('.reject');
+    const noMoreProfiles = document.getElementById('no-more-profiles');
+
+    function swipeProfile(direction) {
+        if (currentProfile < profiles.length) {
+            const profile = profiles[currentProfile];
+            if (direction === 'like') {
+                profile.style.transform = 'translateX(100%)';
+            } else if (direction === 'reject') {
+                profile.style.transform = 'translateX(-100%)';
+            }
+            profile.style.opacity = '0';
+            currentProfile++;
+
+            if (currentProfile === profiles.length) {
+                noMoreProfiles.style.display = 'block';
+            } else {
+                profiles[currentProfile].style.transform = 'none';
+                profiles[currentProfile].style.opacity = '1';
+            }
+        }
+    }
+
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => swipeProfile('like'));
+    });
+
+    rejectButtons.forEach(button => {
+        button.addEventListener('click', () => swipeProfile('reject'));
+    });
+});
+
+        </script>
+</body>
+</html>
